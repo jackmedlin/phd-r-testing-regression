@@ -10,7 +10,7 @@ Anyway, here is an explanation of some of my code so far - beginning with Regres
 
 This first block shows the packages I am using, as well as setting the working directory and reading data from the dataset CSV as well as cleaning the variable names. If you have any suggestions on packages to use, let me know!
 
-```
+```R
 # Import packages
 library(tidyverse)
 library(janitor)
@@ -30,7 +30,8 @@ df <- clean_names(df)
 
 ```
 This following block is my regression analysis. I am mutating the predictors into factors and then completing the models for Completion, Continuation, and Outcomes. I then create tidy summaries for these models to allow for visualisation.
-```
+```R
+
 # Mutates predictor variables to factors
 df <- df %>%
   mutate(
@@ -55,11 +56,12 @@ model_summaries <- bind_rows(
   tidy(model_continuation) %>% mutate(model = "Continuation"),
   tidy(model_outcomes) %>% mutate(model = "Outcomes")
 )
+
 ```
 
 This final block is creating APA style tables for each of the models. This isn't pretty code, and it was a lot of trial and error as well as looking through Stack Overflow. I've tried to comment as I went, but the basis is it splits the models into individual tables, and the rest is aesthetics. There are definitely redundant parts from adding new bits i.e. in the ```select()``` function, I don't need to add a new label given they are then given a new label in the ```cols_label()``` function but I can fix that.
 
-```
+```R
 # Visualise model summaries in a table
 model_summaries %>%
   select(model, term, estimate, std.error, statistic, p.value) %>%
@@ -130,4 +132,12 @@ This leaves me with the following tables:
 
 ---
 
-I'm not sure if I've done this right. The models look okay, and predict in the way you would expect - with the strongest predictors (and in most cases the **only** predictors) being the TEF Outcome awards. This is due to the nature in which the TEF outcome awards are awarded... i.e. you need to have good and above-benchmark measures in B3 conditions in order to get Silver or Gold.
+I'm not sure if I've done this right. Or if I've missed out on steps which I should have done beforehand.
+
+The models look okay, and predict in the way you would expect - with the strongest predictors (and in most cases the **only** predictors) being the TEF Outcome awards. This is due to the nature in which the TEF outcome awards are awarded... i.e. you need to have good and above-benchmark measures in B3 conditions in order to get Silver or Gold. I think the biggest confusion for me is the concept of the Intercept. When I do analysis in SPSS, the output looks like this:
+
+
+![alt text](https://github.com/jackmedlin/phd-r-testing/blob/main/regression-diss-example.png "Example")
+
+
+Just explaining this to myself, the intercept represents the expected value for Completion, Continuation, or Progression/Outcomes for observations where the TEF awards are at their 'baseline' category - which is typically the first level of each factor, in this case Bronze. _Do I not want to visualise the coefficients for Bronze? And if so how do I do that?_ In the case above, I know the ```(Constant)``` is the 'dummy variable' in the same way that the intercept in the outputs I've created are... but I'm not sure how to do this without using my first level factor as the intercept. 
