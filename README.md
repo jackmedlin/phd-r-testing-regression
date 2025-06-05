@@ -124,3 +124,10 @@ for (mod in names(model_list)) {
 
 This leaves me with the following tables:
 
+![alt text](https://github.com/jackmedlin/phd-r-testing/blob/main/continuation-model-summary.png "Continuation")
+![alt text](https://github.com/jackmedlin/phd-r-testing/blob/main/completion-model-summary.png "Completion")
+![alt text](https://github.com/jackmedlin/phd-r-testing/blob/main/outcomes-model-summary.png "Progression")
+
+---
+
+I'm not sure if I've done this right. The models look okay, and predict in the way you would expect - with the strongest predictors (and in most cases the **only** predictors) being the TEF Outcome awards. This is due to the nature in which the TEF outcome awards are awarded... i.e. you need to have good and above-benchmark measures in B3 conditions in order to get Silver or Gold.
