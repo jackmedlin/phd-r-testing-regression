@@ -1,4 +1,4 @@
-# phd-r-testing
+# phd-r-testing-regression
 
 This is me both rubberducking, and trying to explain my progress with messing around with R in terms of analysis.
 
